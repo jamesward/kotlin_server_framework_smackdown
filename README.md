@@ -23,6 +23,13 @@ Kotlin Server Framework Smackdown
 - No coroutines
 
 
+## Spring Boot
+```
+./gradlew -t :js-client:run
+./gradlew -t :springboot-server:classes
+./gradlew :springboot-server:bootRun
+```
+
 
 ## TODO
 - `html-client` with `webjars-locator`

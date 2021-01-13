@@ -16,7 +16,7 @@ object Html {
         body {
             nav("navbar fixed-top navbar-light bg-light") {
                 a("/", classes = "navbar-brand") {
-                    +"Micronaut Bars"
+                    +"Bars"
                 }
             }
 
@@ -27,8 +27,9 @@ object Html {
 
                 form("/bars") {
                     id = "form"
-                    input {
+                    textInput {
                         id = "name"
+                        required = true
                     }
                     submitInput { }
                 }

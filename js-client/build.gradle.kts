@@ -4,7 +4,11 @@ plugins {
 
 kotlin {
     js {
-        browser()
+        browser {
+            runTask {
+                devServer = devServer?.copy(port = 8081, open = false)
+            }
+        }
         binaries.executable()
     }
     sourceSets["main"].dependencies {

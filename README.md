@@ -12,3 +12,17 @@ Kotlin Server Framework Smackdown
     - Annotations for Entity can't be in MPP project
 - Coroutine support
 - Compile-time DI
+- TestContainers: Some struggle to create a bean with the dynamic config
+
+## Quarkus
+```
+./gradlew -t :js-client:run
+./gradlew :quarkus-server:quarkusDev
+```
+
+- No coroutines
+
+
+
+## TODO
+- `html-client` with `webjars-locator`

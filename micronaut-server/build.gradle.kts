@@ -29,8 +29,7 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:1.15.1")
 
     // UI
-    implementation("org.webjars:bootstrap:4.5.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
+    implementation(project(":html-client"))
 }
 
 java {

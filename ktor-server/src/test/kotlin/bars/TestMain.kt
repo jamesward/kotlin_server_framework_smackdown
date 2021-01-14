@@ -26,9 +26,11 @@ fun Application.testModule() {
             username = container.username
             password = container.password
         }
+        environment.monitor.subscribe(ApplicationStopped) {
+            container.stop()
+        }
     }
 
-    // todo: stop
 }
 
 @EngineAPI

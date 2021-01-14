@@ -1,6 +1,7 @@
 package bars
 
 import com.github.jasync.sql.db.Connection
+import com.github.jasync.sql.db.ConnectionPoolConfigurationBuilder
 import com.github.jasync.sql.db.postgresql.PostgreSQLConnectionBuilder
 import com.github.jasync_sql_extensions.mapTo
 import io.ktor.application.*
@@ -19,55 +20,19 @@ import io.ktor.webjars.*
 import kotlinx.coroutines.future.await
 import org.slf4j.LoggerFactory
 
-class ConnectionFeature(configuration: Configuration) {
-
-    // todo
-    val host = configuration.host
-    val port = configuration.port
-    val database = configuration.database
-    val username = configuration.username
-    val password = configuration.password
-
-    class Configuration {
-        var host: String? = null
-        var port: Int? = null
-        var database: String? = null
-        var username: String? = null
-        var password: String? = null
-    }
-
-    companion object : ApplicationFeature<Application, Configuration, Connection> {
+class ConnectionFeature {
+    companion object : ApplicationFeature<Application, ConnectionPoolConfigurationBuilder, Connection> {
         override val key: AttributeKey<Connection> = AttributeKey("Connection")
 
-        override fun install(pipeline: Application, configure: Configuration.() -> Unit): Connection {
-            val configuration = Configuration().apply(configure)
+        override fun install(pipeline: Application, configure: ConnectionPoolConfigurationBuilder.() -> Unit): Connection {
+            val config = ConnectionPoolConfigurationBuilder().apply { configure() }
+            val pool = PostgreSQLConnectionBuilder.createConnectionPool(config)
 
-            val pool = configuration.host?.let { host ->
-                configuration.port?.let { port ->
-                    configuration.database?.let { database ->
-                        configuration.username?.let { username ->
-                            configuration.password?.let { password ->
-                                PostgreSQLConnectionBuilder.createConnectionPool {
-                                    this.host = host
-                                    this.port = port
-                                    this.database = database
-                                    this.username = username
-                                    this.password = password
-                                }
-                            }
-                        }
-                    }
-                }
+            pipeline.intercept(ApplicationCallPipeline.Call) {
+                this.context.attributes.put(key, pool)
             }
 
-            pool?.let {
-                pipeline.intercept(ApplicationCallPipeline.Call) {
-                    this.context.attributes.put(key, pool)
-                }
-            }
-
-            // todo
-            return pool!!
+            return pool
         }
     }
 }

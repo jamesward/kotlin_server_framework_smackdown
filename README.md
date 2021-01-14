@@ -33,7 +33,6 @@ Kotlin Server Framework Smackdown
 ## Ktor
 ```
 ./gradlew -t :js-client:run
-./gradlew -t :ktor-server:classes
 ./gradlew :ktor-server:testRun
 ```
 

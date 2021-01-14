@@ -19,7 +19,7 @@ Kotlin Server Framework Smackdown
 ./gradlew -t :js-client:run
 ./gradlew :quarkus-server:quarkusDev
 ```
-
+- BOM Difficulties with Kotlin 1.4
 - No coroutines
 
 
@@ -30,6 +30,20 @@ Kotlin Server Framework Smackdown
 ./gradlew :springboot-server:bootRun
 ```
 
+## Ktor
+```
+./gradlew -t :js-client:run
+./gradlew -t :ktor-server:classes
+./gradlew :ktor-server:testRun
+```
+
+- Autoreload is currently broken
+- Exposed (JetBrains SQL) is not Reactive
+- MPP Client
+
+
+
 
 ## TODO
 - `html-client` with `webjars-locator`
+- Copy js to server project

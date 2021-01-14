@@ -5,7 +5,8 @@ import kotlinx.html.dom.createHTMLDocument
 import org.w3c.dom.Document
 
 object Html {
-    val index: Document = createHTMLDocument().html {
+
+    val indexHTML: HTML.() -> Unit = {
         head {
             link("/webjars/bootstrap/4.5.3/css/bootstrap.min.css", LinkRel.stylesheet)
             link("/assets/index.css", LinkRel.stylesheet)
@@ -36,4 +37,7 @@ object Html {
             }
         }
     }
+
+    val index: Document = createHTMLDocument().html(block = indexHTML)
+
 }

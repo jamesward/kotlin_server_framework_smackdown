@@ -14,7 +14,6 @@ import javax.annotation.PreDestroy
 class TestPostgresContainer : PostgreSQLContainer<TestPostgresContainer>("postgres:13.1") {
 
     init {
-        println("INIT")
         this.withInitScript("init.sql")
         this.start()
     }

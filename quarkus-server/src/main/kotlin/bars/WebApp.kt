@@ -11,7 +11,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @Path("/")
-class App(@Inject val pgPool: PgPool) {
+class WebApp(@Inject val pgPool: PgPool) {
 
     @GET
     @Produces(MediaType.TEXT_HTML)

@@ -4,6 +4,7 @@ plugins {
     application
     kotlin("jvm")
     kotlin("kapt")
+    id("com.google.cloud.tools.jib") version "2.7.1"
 }
 
 dependencies {

@@ -1,25 +1,21 @@
 package bars
 
+import io.quarkus.arc.profile.IfBuildProfile
 import io.vertx.mutiny.pgclient.PgPool
 import io.vertx.pgclient.PgConnectOptions
 import io.vertx.sqlclient.PoolOptions
 import org.testcontainers.containers.PostgreSQLContainer
+import javax.annotation.PreDestroy
 import javax.enterprise.context.Dependent
 import javax.enterprise.inject.Produces
+import javax.inject.Singleton
 
 @Dependent
 class TestPgPool {
 
-    class PostgresContainer : PostgreSQLContainer<PostgresContainer>("postgres:13.1")
-
-    private val container by lazy {
-        val underlying = PostgresContainer().withInitScript("init.sql")
-        underlying.start()
-        underlying
-    }
-
     @Produces
-    fun pgPool(): PgPool {
+    @IfBuildProfile("dev")
+    fun pgPool(container: TestPostgresContainer): PgPool {
         val pgConnectOptions = PgConnectOptions()
         pgConnectOptions.host = container.host
         pgConnectOptions.port = container.firstMappedPort
@@ -30,6 +26,21 @@ class TestPgPool {
         val poolOptions = PoolOptions()
 
         return PgPool.pool(pgConnectOptions, poolOptions)
+    }
+
+}
+
+@Singleton
+class TestPostgresContainer : PostgreSQLContainer<TestPostgresContainer>("postgres:13.1") {
+
+    init {
+        this.withInitScript("init.sql")
+        this.start()
+    }
+
+    @PreDestroy
+    fun destroy() {
+        this.stop()
     }
 
 }

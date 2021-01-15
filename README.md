@@ -63,6 +63,12 @@ docker run -it --network host \
   quarkus-server
 ```
 
+GraalVM:
+*Broken: Static assets do not work. `Cannot construct instance of bars.Bar`* 
+```
+./gradlew :quarkus-server:nativeDockerBuild
+```
+
 - BOM Difficulties with Kotlin 1.4
 - Gradle Plugin classpath not configurable
 - No coroutines

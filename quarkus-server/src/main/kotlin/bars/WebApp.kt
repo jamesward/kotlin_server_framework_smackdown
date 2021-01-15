@@ -8,10 +8,9 @@ import io.smallrye.mutiny.Uni
 import io.vertx.mutiny.pgclient.PgPool
 import io.vertx.mutiny.sqlclient.Tuple
 import java.lang.Exception
-import javax.inject.Inject
 
 @Path("/")
-class WebApp(@Inject val pgPool: PgPool) {
+class WebApp(val pgPool: PgPool) {
 
     @GET
     @Produces(MediaType.TEXT_HTML)

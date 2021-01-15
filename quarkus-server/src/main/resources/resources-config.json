@@ -1,0 +1,10 @@
+{
+  "resources": [
+    {
+      "pattern": "assets"
+    },
+    {
+      "pattern": "webjars/.*"
+    }
+  ]
+}

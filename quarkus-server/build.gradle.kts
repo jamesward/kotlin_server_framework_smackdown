@@ -54,3 +54,16 @@ tasks.create<io.quarkus.gradle.tasks.QuarkusBuild>("dockerBuild") {
         System.setProperty("quarkus.container-image.tag", "latest")
     }
 }
+
+tasks.create<io.quarkus.gradle.tasks.QuarkusBuild>("nativeDockerBuild") {
+    doFirst {
+        System.setProperty("quarkus.package.type", "native")
+        System.setProperty("quarkus.native.container-build", "true")
+        //System.setProperty("quarkus.native.resources.includes", "assets/**,webjars/**")
+        System.setProperty("quarkus.native.additional-build-args", "-H:ReflectionConfigurationFiles=reflection-config.json,-H:ResourceConfigurationFiles=resources-config.json")
+        System.setProperty("quarkus.container-image.build", "true")
+        System.setProperty("quarkus.container-image.name", "quarkus-server-native")
+        System.setProperty("quarkus.container-image.group", "")
+        System.setProperty("quarkus.container-image.tag", "latest")
+    }
+}

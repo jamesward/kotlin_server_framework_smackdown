@@ -15,8 +15,7 @@ dependencies {
     implementation(project(":html-client"))
 
     implementation(platform("io.quarkus:quarkus-bom:1.11.0.Final"))
-    implementation("io.quarkus:quarkus-resteasy-jackson")
-    implementation("io.quarkus:quarkus-resteasy-mutiny")
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 

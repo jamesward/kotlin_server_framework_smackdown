@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.allopen")
-    id("io.quarkus") version "1.11.0.CR1"
+    id("io.quarkus") version "1.11.0.Final"
 }
 
 java {
@@ -14,9 +14,8 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":html-client"))
 
-    implementation(platform("io.quarkus:quarkus-bom:1.11.0.CR1"))
-    implementation("io.quarkus:quarkus-resteasy-jackson")
-    implementation("io.quarkus:quarkus-resteasy-mutiny")
+    implementation(platform("io.quarkus:quarkus-bom:1.11.0.Final"))
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 

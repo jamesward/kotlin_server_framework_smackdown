@@ -1,6 +1,7 @@
 package bars
 
 import io.quarkus.arc.profile.IfBuildProfile
+import io.vertx.mutiny.core.Vertx
 import io.vertx.mutiny.pgclient.PgPool
 import io.vertx.pgclient.PgConnectOptions
 import io.vertx.sqlclient.PoolOptions
@@ -15,7 +16,7 @@ class TestPgPool {
 
     @Produces
     @IfBuildProfile("dev")
-    fun pgPool(container: TestPostgresContainer): PgPool {
+    fun pgPool(container: TestPostgresContainer, vertx: Vertx): PgPool {
         val pgConnectOptions = PgConnectOptions()
         pgConnectOptions.host = container.host
         pgConnectOptions.port = container.firstMappedPort
@@ -25,7 +26,7 @@ class TestPgPool {
 
         val poolOptions = PoolOptions()
 
-        return PgPool.pool(pgConnectOptions, poolOptions)
+        return PgPool.pool(vertx, pgConnectOptions, poolOptions)
     }
 
 }

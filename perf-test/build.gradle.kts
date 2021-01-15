@@ -3,10 +3,22 @@ plugins {
 }
 
 dependencies {
-    implementation("org.testcontainers:postgresql:1.15.1")
+    gatlingImplementation("org.testcontainers:postgresql:1.15.1")
+    gatlingRuntimeOnly("org.postgresql:postgresql:42.2.6")
+    gatlingRuntimeOnly(project(":common"))
 }
+
+/*
+gatling {
+    logLevel = "DEBUG"
+    logHttp = io.gatling.gradle.LogHttp.FAILURES
+}
+ */
 
 tasks.withType<io.gatling.gradle.GatlingRunTask> {
     dependsOn(":micronaut-server:jibDockerBuild")
     dependsOn(":quarkus-server:dockerBuild")
+    dependsOn(":springboot-server:bootBuildImage")
+    dependsOn(":ktor-server:jibDockerBuild")
+    outputs.upToDateWhen { false }
 }

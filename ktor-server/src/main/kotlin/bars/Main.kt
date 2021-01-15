@@ -76,7 +76,15 @@ fun Application.baseModule(other: () -> Any = {}) {
 }
 
 fun Application.prodModule() {
-    baseModule()
+    baseModule {
+        install(ConnectionFeature) {
+            host = System.getenv("JASYNC_CLIENT_HOST")
+            port = System.getenv("JASYNC_CLIENT_PORT").toInt()
+            database = System.getenv("JASYNC_CLIENT_DATABASE")
+            username = System.getenv("JASYNC_CLIENT_USERNAME")
+            password = System.getenv("JASYNC_CLIENT_PASSWORD")
+        }
+    }
 }
 
 @EngineAPI

@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    application
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm")
@@ -41,6 +42,10 @@ tasks.withType<KotlinCompile> {
 tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
     dependsOn("testClasses")
     classpath = configurations["developmentOnly"] + sourceSets["test"].runtimeClasspath
+}
+
+application {
+    mainClass.set("bars.MainKt")
 }
 
 // todo: copy js-client artifact

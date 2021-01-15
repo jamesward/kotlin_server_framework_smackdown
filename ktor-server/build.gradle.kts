@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     application
     kotlin("jvm")
+    id("com.google.cloud.tools.jib") version "2.7.1"
 }
 
 java {
@@ -29,6 +30,10 @@ dependencies {
     implementation("com.github.jasync-sql:jasync-postgresql:1.1.5")
     implementation("com.github.28Smiles:jasync-sql-extensions:0.4.2")
     testImplementation("org.testcontainers:postgresql:1.15.1")
+}
+
+application {
+    mainClass.set("bars.MainKt")
 }
 
 tasks.register<JavaExec>("testRun") {

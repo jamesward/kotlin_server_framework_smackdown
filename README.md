@@ -13,6 +13,7 @@ Dev:
 Prod:
 ```
 export JASYNC_CLIENT_HOST=localhost
+export JASYNC_CLIENT_PORT=5432
 export JASYNC_CLIENT_DATABASE=postgres
 export JASYNC_CLIENT_USERNAME=postgres
 export JASYNC_CLIENT_PASSWORD=password
@@ -23,7 +24,9 @@ Container Build & Run:
 ```
 ./gradlew :micronaut-server:jibDockerBuild
 docker run -it --network host \
-  -eJASYNC_CLIENT_HOST=localhost -eJASYNC_CLIENT_DATABASE=postgres -eJASYNC_CLIENT_USERNAME=postgres -eJASYNC_CLIENT_PASSWORD=password \
+  -eJASYNC_CLIENT_HOST=localhost -eJASYNC_CLIENT_PORT=5432 \
+  -eJASYNC_CLIENT_DATABASE=postgres \
+  -eJASYNC_CLIENT_USERNAME=postgres -eJASYNC_CLIENT_PASSWORD=password \
   micronaut-server
 ```
 
@@ -66,19 +69,61 @@ docker run -it --network host \
 
 
 ## Spring Boot
+
+Dev:
 ```
 ./gradlew -t :js-client:run
 ./gradlew -t :springboot-server:classes
 ./gradlew :springboot-server:bootRun
 ```
 
+Prod:
+```
+export SPRING_R2DBC_URL=r2dbc:postgresql://localhost/postgres
+export SPRING_R2DBC_USERNAME=postgres
+export SPRING_R2DBC_PASSWORD=password
+./gradlew :springboot-server:run
+```
+(TODO: Disable DevTools?)
+
+Container Build & Run:
+```
+./gradlew :springboot-server:bootBuildImage
+docker run -it --network host \
+  -e SPRING_R2DBC_URL=r2dbc:postgresql://localhost/postgres -eSPRING_R2DBC_USERNAME=postgres -eSPRING_R2DBC_PASSWORD=password \
+  springboot-server
+```
+
+
 - R2DBC template requires data class annotations
 
 
 ## Ktor
+
+Dev:
 ```
 ./gradlew -t :js-client:run
 ./gradlew :ktor-server:testRun
+```
+
+Prod:
+```
+export JASYNC_CLIENT_HOST=localhost
+export JASYNC_CLIENT_PORT=5432
+export JASYNC_CLIENT_DATABASE=postgres
+export JASYNC_CLIENT_USERNAME=postgres
+export JASYNC_CLIENT_PASSWORD=password
+./gradlew :ktor-server:run
+```
+
+Container Build & Run:
+```
+./gradlew :ktor-server:jibDockerBuild
+docker run -it --network host \
+  -eJASYNC_CLIENT_HOST=localhost -eJASYNC_CLIENT_PORT=5432 \
+   -eJASYNC_CLIENT_DATABASE=postgres \
+   -eJASYNC_CLIENT_USERNAME=postgres -eJASYNC_CLIENT_PASSWORD=password \
+  ktor-server
 ```
 
 - Autoreload is currently broken
@@ -86,6 +131,10 @@ docker run -it --network host \
 - MPP Client
 
 
+## Perf Tests
+```
+./gradlew :perf-test:gatlingRun
+```
 
 
 ## TODO

@@ -48,4 +48,10 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+jib {
+    container {
+        mainClass = application.mainClass.get()
+    }
+}
+
 // todo: copy js-client artifact

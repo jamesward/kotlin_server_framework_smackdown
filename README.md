@@ -106,6 +106,21 @@ docker run -it --network host \
   springboot-server
 ```
 
+GraalVM Native Image:
+*Could not create native image due to variety of issues*
+```
+./gradlew :springboot-server:bootBuildImage -Pnative
+
+# Config Gen (With the native-image-agent installed)
+export SPRING_R2DBC_URL=r2dbc:postgresql://localhost/postgres
+export SPRING_R2DBC_USERNAME=postgres
+export SPRING_R2DBC_PASSWORD=password
+export JAVA_HOME=~/bin/graalvm-ce-java11-20.3.0
+export PATH=$JAVA_HOME/bin:$PATH
+./gradlew :springboot-server:bootJar
+java -agentlib:native-image-agent=config-output-dir=springboot-server/src/main/resources/META-INF/native-image \
+  -jar springboot-server/build/libs/springboot-server.jar
+```
 
 - R2DBC template requires data class annotations
 

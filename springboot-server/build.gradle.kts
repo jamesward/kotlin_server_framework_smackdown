@@ -8,6 +8,10 @@ plugins {
     kotlin("plugin.spring")
 }
 
+repositories {
+    maven(uri("https://repo.spring.io/milestone"))
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -30,6 +34,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    implementation("org.springframework.experimental:spring-graalvm-native:0.8.5")
 }
 
 tasks.withType<KotlinCompile> {
@@ -42,6 +48,21 @@ tasks.withType<KotlinCompile> {
 tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
     dependsOn("testClasses")
     classpath = configurations["developmentOnly"] + sourceSets["test"].runtimeClasspath
+}
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootBuildImage> {
+    if (project.hasProperty("native")) {
+        val args = setOf(
+            "-Dspring.spel.ignore=true",
+            "-Dspring.native.remove-yaml-support=true",
+            "--no-fallback"
+        )
+        builder = "paketobuildpacks/builder:tiny"
+        environment = mapOf(
+            "BP_BOOT_NATIVE_IMAGE" to "1",
+            "BP_BOOT_NATIVE_IMAGE_BUILD_ARGUMENTS" to args.joinToString(" ")
+        )
+    }
 }
 
 application {

@@ -12,7 +12,6 @@ import io.micronaut.runtime.Micronaut
 import kotlinx.coroutines.future.await
 import kotlinx.html.dom.serialize
 
-
 fun main() {
     Micronaut.run()
 }

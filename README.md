@@ -22,12 +22,18 @@ export JASYNC_CLIENT_PASSWORD=password
 
 Container Build & Run:
 ```
-./gradlew :micronaut-server:jibDockerBuild
+./gradlew :micronaut-server:dockerBuild
 docker run -it --network host \
   -eJASYNC_CLIENT_HOST=localhost -eJASYNC_CLIENT_PORT=5432 \
   -eJASYNC_CLIENT_DATABASE=postgres \
   -eJASYNC_CLIENT_USERNAME=postgres -eJASYNC_CLIENT_PASSWORD=password \
   micronaut-server
+```
+
+GraalVM Native Image:
+*Broken: jasync_sql_extensions uses `ClassLoader.defineClass`*
+```
+./gradlew :quarkus-server:dockerBuildNative
 ```
 
 - GORM is nice but doesn't seem to play well with MPP & jasync
@@ -63,7 +69,7 @@ docker run -it --network host \
   quarkus-server
 ```
 
-GraalVM:
+GraalVM Native Image:
 *Broken: Static assets do not work. `Cannot construct instance of bars.Bar`* 
 ```
 ./gradlew :quarkus-server:nativeDockerBuild

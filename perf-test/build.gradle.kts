@@ -16,7 +16,7 @@ gatling {
  */
 
 tasks.withType<io.gatling.gradle.GatlingRunTask> {
-    dependsOn(":micronaut-server:jibDockerBuild")
+    dependsOn(":micronaut-server:dockerBuild")
     dependsOn(":quarkus-server:dockerBuild")
     dependsOn(":springboot-server:bootBuildImage")
     dependsOn(":ktor-server:jibDockerBuild")

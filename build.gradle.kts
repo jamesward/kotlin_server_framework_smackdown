@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt") version "1.4.21" apply false
     kotlin("multiplatform") version "1.4.21" apply false
     kotlin("plugin.allopen") version "1.4.21" apply false
+    id("io.micronaut.application") version "1.2.0" apply false
 }
 
 allprojects {

@@ -1,0 +1,11 @@
+{
+  "resources":{
+  "includes":[
+    {"pattern":"\\QMETA-INF/resources/assets/index.css\\E"}, 
+    {"pattern":"\\QMETA-INF/resources/webjars/bootstrap/4.5.3/css/bootstrap.min.css\\E"}, 
+    {"pattern":"\\QMETA-INF/services/kotlin.reflect.jvm.internal.impl.resolve.ExternalOverridabilityCondition\\E"}, 
+    {"pattern":"\\Qlogback.xml\\E"}, 
+    {"pattern":"\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"}
+  ]},
+  "bundles":[]
+}

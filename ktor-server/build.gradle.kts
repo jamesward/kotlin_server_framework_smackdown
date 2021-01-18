@@ -4,6 +4,7 @@ plugins {
     application
     kotlin("jvm")
     id("com.google.cloud.tools.jib") version "2.7.1"
+    id("com.palantir.graal") version "0.7.2"
 }
 
 java {
@@ -52,6 +53,19 @@ jib {
     container {
         mainClass = application.mainClass.get()
     }
+}
+
+graal {
+    outputName("ktor-server")
+    graalVersion("20.3.0")
+    mainClass(application.mainClass.get())
+    javaVersion("8")
+    option("--verbose")
+    option("--no-server")
+    option("--no-fallback")
+    option("-H:+ReportExceptionStackTraces")
+    option("-H:+PrintClassInitialization")
+    option("-H:ConfigurationFileDirectories=src/graal")
 }
 
 // todo: copy js-client artifact

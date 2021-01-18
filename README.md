@@ -153,6 +153,24 @@ docker run -it --network host \
   ktor-server
 ```
 
+GraalVM Native Image:
+*Broken: jasync_sql_extensions uses `ClassLoader.defineClass`*
+
+Generate GraalVM Configs:
+```
+./gradlew :ktor-server:extractGraalTooling
+./gradlew :ktor-server:install
+JAVA_HOME=~/.gradle/caches/com.palantir.graal/20.3.0/11/graalvm-ce-java11-20.3.0 \
+  JAVA_OPTS=-agentlib:native-image-agent=config-output-dir=ktor-server/src/graal \
+  ktor-server/build/install/ktor-server/bin/ktor-server
+```
+
+Generate Native Image:
+```
+./gradlew :ktor-server:nativeImage
+```
+
+
 - Autoreload is currently broken
 - Exposed (JetBrains SQL) is not Reactive
 - MPP Client

@@ -3,12 +3,7 @@
   "name":"bars.Bar",
   "allDeclaredFields":true,
   "allDeclaredMethods":true,
-  "allDeclaredConstructors":true,
-  "allPublicConstructors":true
-},
-{
-  "name":"bars.Bar$Mapper",
-  "methods":[{"name":"<init>","parameterTypes":["kotlin.reflect.KClass"] }]
+  "allDeclaredConstructors":true
 },
 {
   "name":"ch.qos.logback.classic.encoder.PatternLayoutEncoder",
@@ -77,21 +72,6 @@
 },
 {
   "name":"com.github.jasync.sql.db.postgresql.codec.PostgreSQLConnectionHandler$connect$1"
-},
-{
-  "name":"com.google.common.util.concurrent.AbstractFuture",
-  "fields":[
-    {"name":"listeners", "allowUnsafeAccess":true}, 
-    {"name":"value", "allowUnsafeAccess":true}, 
-    {"name":"waiters", "allowUnsafeAccess":true}
-  ]
-},
-{
-  "name":"com.google.common.util.concurrent.AbstractFuture$Waiter",
-  "fields":[
-    {"name":"next", "allowUnsafeAccess":true}, 
-    {"name":"thread", "allowUnsafeAccess":true}
-  ]
 },
 {
   "name":"com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
@@ -549,11 +529,8 @@
   "allDeclaredFields":true
 },
 {
-  "name":"org.joda.time.DateTime"
-},
-{
   "name":"sun.misc.Unsafe",
-  "allDeclaredFields":true,
+  "fields":[{"name":"theUnsafe"}],
   "methods":[
     {"name":"copyMemory","parameterTypes":["java.lang.Object","long","java.lang.Object","long","long"] }, 
     {"name":"getAndAddLong","parameterTypes":["java.lang.Object","long","long"] }, 

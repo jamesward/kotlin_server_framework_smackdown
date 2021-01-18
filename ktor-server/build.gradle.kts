@@ -15,7 +15,7 @@ java {
 dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
-    implementation(project(":common"))
+    implementation(project(":zeko-db"))
     implementation(project(":html-client"))
 
     implementation("io.ktor:ktor-server-core:1.5.0")
@@ -29,8 +29,8 @@ dependencies {
 
     implementation("io.micronaut.sql:micronaut-jasync-sql:3.3.5")
     implementation("com.github.jasync-sql:jasync-postgresql:1.1.5")
-    implementation("com.github.28Smiles:jasync-sql-extensions:0.4.2")
     testImplementation("org.testcontainers:postgresql:1.15.1")
+    testRuntimeOnly("org.postgresql:postgresql:42.2.6") // todo: transitive
 }
 
 application {

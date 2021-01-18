@@ -155,6 +155,7 @@ docker run -it --network host \
 
 GraalVM Native Image:
 *Broken: jasync_sql_extensions uses `ClassLoader.defineClass`*
+*Broken with Zeko: Logback*
 
 Generate GraalVM Configs:
 ```
@@ -174,6 +175,17 @@ Generate Native Image:
 - Autoreload is currently broken
 - Exposed (JetBrains SQL) is not Reactive
 - MPP Client
+
+
+## Data Access
+
+```
+Must be Reactive
+Most fancy frameworks required annotations or base classes for DAOs
+Nothing felt very Kotlin-idiomatic (data class, coroutines, MPP ready, etc)
+
+
+```
 
 
 ## Perf Tests

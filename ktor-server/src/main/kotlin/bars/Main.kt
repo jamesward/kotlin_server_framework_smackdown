@@ -1,9 +1,9 @@
 package bars
 
-import com.github.jasync.sql.db.Connection
 import com.github.jasync.sql.db.ConnectionPoolConfigurationBuilder
+import com.github.jasync.sql.db.SuspendingConnection
+import com.github.jasync.sql.db.asSuspending
 import com.github.jasync.sql.db.postgresql.PostgreSQLConnectionBuilder
-import com.github.jasync_sql_extensions.mapTo
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.html.*
@@ -17,22 +17,21 @@ import io.ktor.jackson.*
 import io.ktor.server.engine.*
 import io.ktor.util.*
 import io.ktor.webjars.*
-import kotlinx.coroutines.future.await
 import org.slf4j.LoggerFactory
 
 class ConnectionFeature {
-    companion object : ApplicationFeature<Application, ConnectionPoolConfigurationBuilder, Connection> {
-        override val key: AttributeKey<Connection> = AttributeKey("Connection")
+    companion object : ApplicationFeature<Application, ConnectionPoolConfigurationBuilder, SuspendingConnection> {
+        override val key: AttributeKey<SuspendingConnection> = AttributeKey("Connection")
 
-        override fun install(pipeline: Application, configure: ConnectionPoolConfigurationBuilder.() -> Unit): Connection {
+        override fun install(pipeline: Application, configure: ConnectionPoolConfigurationBuilder.() -> Unit): SuspendingConnection {
             val config = ConnectionPoolConfigurationBuilder().apply { configure() }
             val pool = PostgreSQLConnectionBuilder.createConnectionPool(config)
 
             pipeline.intercept(ApplicationCallPipeline.Call) {
-                this.context.attributes.put(key, pool)
+                this.context.attributes.put(key, pool.asSuspending)
             }
 
-            return pool
+            return pool.asSuspending
         }
     }
 }
@@ -56,15 +55,14 @@ fun Application.baseModule(other: () -> Any = {}) {
         route("/bars") {
             get {
                 call.attributes.getOrNull(ConnectionFeature.key)?.let { client ->
-                    val bars = client.sendQuery("SELECT * FROM bar").await().rows.mapTo<Bar>()
+                    val bars = BarDAO.selectAll(client)
                     call.respond(bars)
                 }
             }
             post {
                 val bar = call.receive<Bar>()
-                val sql = "INSERT INTO bar (name) VALUES (?)"
                 call.attributes.getOrNull(ConnectionFeature.key)?.let { client ->
-                    val result = client.sendPreparedStatement(sql, listOf(bar.name)).await()
+                    val result = BarDAO.insert(bar, client)
                     if (result.rowsAffected == 1L)
                         call.respond(HttpStatusCode.NoContent)
                     else

@@ -57,7 +57,7 @@ jib {
 
 graal {
     outputName("ktor-server")
-    graalVersion("20.3.0")
+    graalVersion("21.0.0")
     mainClass(application.mainClass.get())
     javaVersion("8")
     option("--verbose")

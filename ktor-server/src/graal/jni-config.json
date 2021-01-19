@@ -1,16 +1,11 @@
 [
 {
-  "name":"java.lang.ClassLoader",
-  "methods":[{"name":"getPlatformClassLoader","parameterTypes":[] }]
-},
-{
-  "name":"java.lang.NoSuchMethodError"
-},
-{
   "name":"sun.management.VMManagementImpl",
   "fields":[
+    {"name":"bootClassPathSupport"}, 
     {"name":"compTimeMonitoringSupport"}, 
     {"name":"currentThreadCpuTimeSupport"}, 
+    {"name":"gcNotificationSupport"}, 
     {"name":"objectMonitorUsageSupport"}, 
     {"name":"otherThreadCpuTimeSupport"}, 
     {"name":"remoteDiagnosticCommandsSupport"}, 

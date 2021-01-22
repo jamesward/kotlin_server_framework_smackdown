@@ -1,0 +1,10 @@
+{
+  "simulation": "bars.MicronautSimulation",
+  "simulationId": "micronautsimulation",
+  "start": 1611357282106,
+  "description": "",
+  "scenarios": ["Bars"],
+  "assertions": [
+
+  ]
+}

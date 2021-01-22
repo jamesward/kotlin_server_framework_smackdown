@@ -1,0 +1,10 @@
+{
+  "simulation": "bars.QuarkusSimulation",
+  "simulationId": "quarkussimulation",
+  "start": 1611357303273,
+  "description": "",
+  "scenarios": ["Bars"],
+  "assertions": [
+
+  ]
+}

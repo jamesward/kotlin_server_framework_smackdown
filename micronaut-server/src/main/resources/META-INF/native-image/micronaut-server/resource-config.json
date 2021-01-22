@@ -1,0 +1,7 @@
+{
+  "resources":{
+    "includes":[
+      {"pattern":"\\Qcom/sun/org/apache/xml/internal/serializer/output_xml.properties\\E"}
+    ]},
+  "bundles":[]
+}

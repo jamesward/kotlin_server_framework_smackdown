@@ -31,9 +31,9 @@ docker run -it --network host \
 ```
 
 GraalVM Native Image:
-*Broken: jasync_sql_extensions uses `ClassLoader.defineClass`*
+*kotlinx html issues*
 ```
-./gradlew :quarkus-server:dockerBuildNative
+./gradlew :micronaut-server:dockerBuildNative
 ```
 
 - GORM is nice but doesn't seem to play well with MPP & jasync
@@ -41,7 +41,7 @@ GraalVM Native Image:
 - Coroutine support
 - Compile-time DI
 - TestContainers: Some struggle to create a bean with the dynamic config
-
+- KAPT Gradle Issues
 
 
 ## Quarkus

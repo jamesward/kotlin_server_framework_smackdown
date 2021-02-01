@@ -14,10 +14,8 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.cio.*
 import io.ktor.jackson.*
-import io.ktor.server.engine.*
 import io.ktor.util.*
 import io.ktor.webjars.*
-import org.slf4j.LoggerFactory
 
 class ConnectionFeature {
     companion object : ApplicationFeature<Application, ConnectionPoolConfigurationBuilder, SuspendingConnection> {
@@ -73,6 +71,7 @@ fun Application.baseModule(other: () -> Any = {}) {
     }
 }
 
+@Suppress("unused")
 fun Application.prodModule() {
     baseModule {
         install(ConnectionFeature) {
@@ -85,17 +84,6 @@ fun Application.prodModule() {
     }
 }
 
-@EngineAPI
-@KtorExperimentalAPI
-fun main() {
-    val env = applicationEngineEnvironment {
-        log = LoggerFactory.getLogger("ktor.application")
-        module(Application::prodModule)
-        connector {
-            port = System.getenv("PORT")?.toInt() ?: 8080
-        }
-    }
-
-    val server = embeddedServer(CIO, env)
-    server.start(true)
+fun main(args: Array<String>) {
+    EngineMain.main(args)
 }

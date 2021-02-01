@@ -130,6 +130,7 @@ java -agentlib:native-image-agent=config-output-dir=springboot-server/src/main/r
 Dev:
 ```
 ./gradlew -t :js-client:run
+./gradlew -t :ktor-server:classes
 ./gradlew :ktor-server:testRun
 ```
 
@@ -172,7 +173,6 @@ Generate Native Image:
 ```
 
 
-- Autoreload is currently broken
 - Exposed (JetBrains SQL) is not Reactive
 - MPP Client
 

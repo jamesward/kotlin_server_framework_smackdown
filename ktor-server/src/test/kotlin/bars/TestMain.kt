@@ -2,12 +2,10 @@ package bars
 
 import io.ktor.application.*
 import io.ktor.server.cio.*
-import io.ktor.server.engine.*
-import io.ktor.util.*
-import org.slf4j.LoggerFactory
 import org.testcontainers.containers.PostgreSQLContainer
 
 
+@Suppress("unused")
 fun Application.testModule() {
 
     class PostgresContainer : PostgreSQLContainer<PostgresContainer>("postgres:13.1")
@@ -33,19 +31,6 @@ fun Application.testModule() {
 
 }
 
-@EngineAPI
-@KtorExperimentalAPI
-fun main() {
-    val env = applicationEngineEnvironment {
-        developmentMode = true // todo: externalize
-        log = LoggerFactory.getLogger("ktor.application")
-        watchPaths = listOf("ktor-server/build") // todo: gross
-        module(Application::testModule)
-        connector {
-            port = System.getenv("PORT")?.toInt() ?: 8080
-        }
-    }
-
-    val server = embeddedServer(CIO, env)
-    server.start(true)
+fun main(args: Array<String>) {
+    EngineMain.main(args)
 }

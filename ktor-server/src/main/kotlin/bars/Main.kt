@@ -89,9 +89,7 @@ fun Application.prodModule() {
 @KtorExperimentalAPI
 fun main() {
     val env = applicationEngineEnvironment {
-        //developmentMode = true // todo: externalize
         log = LoggerFactory.getLogger("ktor.application")
-        //watchPaths = listOf("ktor-server/build") // todo: gross
         module(Application::prodModule)
         connector {
             port = System.getenv("PORT")?.toInt() ?: 8080

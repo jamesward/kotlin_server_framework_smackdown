@@ -18,12 +18,12 @@ dependencies {
     implementation(project(":zeko-db"))
     implementation(project(":html-client"))
 
-    implementation("io.ktor:ktor-server-core:1.5.0")
-    implementation("io.ktor:ktor-server-cio:1.5.0")
-    implementation("io.ktor:ktor-jackson:1.5.0")
+    implementation("io.ktor:ktor-server-core:1.5.1")
+    implementation("io.ktor:ktor-server-cio:1.5.1")
+    implementation("io.ktor:ktor-jackson:1.5.1")
 
-    implementation("io.ktor:ktor-html-builder:1.5.0")
-    implementation("io.ktor:ktor-webjars:1.5.0")
+    implementation("io.ktor:ktor-html-builder:1.5.1")
+    implementation("io.ktor:ktor-webjars:1.5.1")
 
     runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
